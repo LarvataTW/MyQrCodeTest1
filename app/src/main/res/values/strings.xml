@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyQrCodeTest1</string>
+    <string name="loading">資料讀取中</string>
+</resources>
