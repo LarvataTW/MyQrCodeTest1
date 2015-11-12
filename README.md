@@ -12,11 +12,12 @@
  
 # 參數說明
  
- :uuid   : 掃描出來的qrcode內容
- :email  : 使用者的email 
- :user_toekn : 使用者的token
+ * :uuid   : 掃描出來的qrcode內容
+ * :email  : 使用者的email 
+ * :user_toekn : 使用者的token
  
 # 回傳值：
  
- {"success":false,"message":"找不到此張優惠券或是已被兌換"}
+{"success":false,"message":"找不到此張優惠券或是已被兌換"}
+
 {"success":true,"message":"兌換成功"}
