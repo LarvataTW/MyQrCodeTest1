@@ -24,8 +24,6 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
-    private ProgressDialog mProgressDialog;
-
     private Button scanButton;
     private TextView resultText;
 
@@ -38,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //啟動 QRCode 掃描程式
                 IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
                 integrator.initiateScan();
             }
@@ -50,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, "onActivityResult");
         super.onActivityResult(requestCode, resultCode, data);
+
+        //QRCode 掃描程式的掃描結果
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 
+        //組合 API (設定UUID)
         String url = String.format(Conf.API_URL, scanningResult.getContents());
         Log.d(TAG, url);
         Log.d(TAG, scanningResult.getContents());
@@ -62,9 +64,13 @@ public class MainActivity extends AppCompatActivity {
     private void getResult(String url){
         AsyncHttpClient client = new AsyncHttpClient();
         client.addHeader("Accept", "application/json");
+
+        //設定email與token
         RequestParams params = new RequestParams();
         params.put("user_email", Conf.USER_EMAIL);
         params.put("user_token", Conf.USER_TOKEN);
+
+        //送出與取得回傳結果
         client.get(url, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
